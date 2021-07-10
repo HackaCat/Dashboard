@@ -1,0 +1,47 @@
+{
+    "meals":[
+        {
+            "name":"Beans and Rice",
+            "ingredients": [
+                "2 tablespoons vegetable oil",
+                "1 medium onion, chopped",
+                "2 medium green bell peppers, chopped",
+                "3 stalks celery, chopped",
+                "2 teaspoons salt",
+                "freshly ground black pepper",
+                "5 cloves garlic, minced",
+                "340g pickled pork",
+                "3 bay leaves",
+                "1 teaspoon dried thyme",
+                "1 teaspoon hot sauce",
+                "1/2 teaspoon cayenne pepper",
+                "1 liter water",
+                "1 liter chicken stock",
+                "500g kidney beans"
+            ],
+            "recipe": [
+                "Place the vegetable oil in a 7-quart Dutch oven and set over medium-high heat. Add the onion, bell pepper, celery, salt and pepper to the pot. Cook, stirring frequently, until the onions and celery are semi-translucent and the bell peppers are tender, 6 to 8 minutes. Add the garlic and cook for 1 to 2 minutes, stirring constantly. Add the pickled pork, bay leaves, thyme, hot sauce, cayenne pepper, water and beans to the pot and increase the heat to high. Cook, stirring frequently until the mixture comes to a boil, approximately 6 to 8 minutes. Decrease the heat to maintain a simmer, cover and cook for 1 1/2 hours, stirring every 30 minutes. Uncover, increase the heat slightly to maintain a steady simmer and continue to cook for another 30 to 40 minutes or until the beans are tender and the sauce is thickened to your liking. If you prefer an even creamier texture, mash some of the beans with a potato masher. ",
+                "Prepare rice during the last 30 minutes of cooking the beans. Place the water into an electric kettle and bring to a boil. While the water is coming to a boil place the butter into a 3-quart saucepan, set over medium heat. Once the butter begins to bubble, add the rice and stir to combine. Add the salt and cook for 2 to 3 minutes, stirring frequently. Carefully pour the water over the rice and stir to combine. Decrease the heat to the lowest setting, cover, and cook for 15 to 20 minutes. Serve the beans over the rice."
+            ]
+        },
+        {
+            "name":"Pickled Pork",
+            "ingredients": [
+                "2 cups water",
+                "1 cup apple cider vinegar",
+                "1/4 cup kosher salt",
+                "6 cloves garlic, peeled and crushed",
+                "2 tablespoons sugar",
+                "2 tablespoons yellow mustard seed",
+                "2 tablespoons hot sauce",
+                "1 tablespoon celery seed",
+                "1 bay leaf",
+                "1/4 teaspoon whole black peppercorns",
+                "250g ice",
+                "700g pork butt"
+            ],
+            "recipe": [
+                "Combine all of the ingredients except the ice and the pork in a 2-quart non-reactive saucepan, set over high heat and bring to a boil. Reduce the heat and maintain a simmer for 3 minutes. Remove from the heat, add the ice and stir. Place the pork into a 1-gallon zip top bag and add the cooled pickling liquid. Remove as much air as possible; seal the bag and place in the refrigerator for at least 3 days, turning the bag occasionally. Use within 2 weeks or remove from the pork from the brine and freeze."            ]
+        }
+    ]
+}
