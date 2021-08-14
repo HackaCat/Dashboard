@@ -1,26 +1,65 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title></title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body>
-        <h1>Dashboard Home
-        </h1>
 
-        <ul id="meal-list"></ul>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
 
-        <h2>Ingredients</h2>
-        <div id="ingredients"></div>
+<body class="container">
+    <h1 class="title">Dashboard Home
+    </h1>
 
-        <h2>Recipe</h2>
-        <div id="recipe"></div>
+    <div id="meal-list" class="columns is-multiline"></div>
+    <div class="card">
+        <div class="card-content">
+            <div class="content">
+                <h2 class="title is-5">Recipe</h2>
+                <div id="meal-name"></div>
+            
+                <h2 class="title is-5">Ingredients</h2>
+                <div id="ingredients"></div>
+            
+                <h2 class="title is-5">Recipe</h2>
+                <div id="recipe"></div>
+            </div>
         </div>
+    </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
-<!-- <script src="scripts/base.js"></script> -->
-<script type="text/javascript" src="scripts/script.js"></script>
-    </body>
+    <section id="add-meal-module"> 
+        <form class="field">
+            <h2 class="title is-5">Add recipe</h2>
+            <label class="label">Name</label>
+            <input type='text' data-key='name' class='meal-input input'>
+            <label class="label">Recipe</label>
+            <input type='text' data-key='recipe' class='meal-input input'>
+            <label class="label">Ingredients</label>
+            <input type='text' data-key='ingredients' class='meal-input input'>
+            <button type='button' id="add-meal-btn" class="button is-link">add recipe</button>
+        </form>
+    </section>
+
+    <!-- edit meal module -->
+    <section id="edit-meal-module">
+        <form class="field">
+            <h2>Edit meal</h2>
+            <input type="hidden" class="edit-meal-id">
+            <label class="label">Name</label>
+            <input type='text' data-key='name' class='edit-meal-input input'><br>
+            <label class="label">Recipe</label>
+            <input type='text' data-key='recipe' class='edit-meal-input input'><br>
+            <label class="label">Ingredients</label>
+            <input type='text' data-key='ingredients' class='edit-meal-input input'><br>
+            <button type='button' id="edit-meal-btn" class="button is-link">Edit Meal</button>
+        </form>
+    </section>
+</div>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+    <script src="scripts/base.js"></script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
 </html>
