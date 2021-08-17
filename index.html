@@ -6,14 +6,19 @@
     <title></title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+
 </head>
 
 <body class="container">
     <h1 class="title">Dashboard Home
     </h1>
+    <div id="firebaseui-auth-container"></div>
 
     <div id="meal-list" class="columns is-multiline"></div>
-    <div class="card">
+    <button id="open-recipe-module" class="button"> Add A Recipe </button>
+
+    <div id="recipe-module" class="card">
         <div class="card-content">
             <div class="content">
                 <h2 class="title is-5">Recipe</h2>
@@ -28,31 +33,36 @@
         </div>
     </div>
 
-    <section id="add-meal-module"> 
-        <form class="field">
-            <h2 class="title is-5">Add recipe</h2>
-            <label class="label">Name</label>
-            <input type='text' data-key='name' class='meal-input input'>
-            <label class="label">Recipe</label>
-            <input type='text' data-key='recipe' class='meal-input input'>
-            <label class="label">Ingredients</label>
-            <input type='text' data-key='ingredients' class='meal-input input'>
-            <button type='button' id="add-meal-btn" class="button is-link">add recipe</button>
+    <section id="add-meal-module" class="card"> 
+        <form class="field card-content">
+            <div class="content">
+                <h2 class="title is-5">Add recipe</h2>
+                <label class="label">Name</label>
+                <input type='text' data-key='name' class='meal-input input'>
+                <label class="label">Recipe</label>
+                <input type='text' data-key='recipe' class='meal-input input'>
+                <label class="label">Ingredients</label>
+                <input type='text' data-key='ingredients' class='meal-input input'>
+                <button type='button' id="add-meal-btn" class="button is-link">add recipe</button>
+            </div>
+            
         </form>
     </section>
 
     <!-- edit meal module -->
-    <section id="edit-meal-module">
-        <form class="field">
-            <h2>Edit meal</h2>
-            <input type="hidden" class="edit-meal-id">
-            <label class="label">Name</label>
-            <input type='text' data-key='name' class='edit-meal-input input'><br>
-            <label class="label">Recipe</label>
-            <input type='text' data-key='recipe' class='edit-meal-input input'><br>
-            <label class="label">Ingredients</label>
-            <input type='text' data-key='ingredients' class='edit-meal-input input'><br>
-            <button type='button' id="edit-meal-btn" class="button is-link">Edit Meal</button>
+    <section id="edit-meal-module" class="card">
+        <form class="field card-content">
+            <div class="content">
+                <h2>Edit meal</h2>
+                <input type="hidden" class="edit-meal-id">
+                <label class="label">Name</label>
+                <input type='text' data-key='name' class='edit-meal-input input'><br>
+                <label class="label">Recipe</label>
+                <input type='text' data-key='recipe' class='edit-meal-input input'><br>
+                <label class="label">Ingredients</label>
+                <input type='text' data-key='ingredients' class='edit-meal-input input'><br>
+                <button type='button' id="edit-meal-btn" class="button is-link">Edit Meal</button>
+            </div>
         </form>
     </section>
 </div>
@@ -60,6 +70,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
     <script src="scripts/base.js"></script>
     <script type="text/javascript" src="scripts/script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+
 </body>
 
 </html>
