@@ -1,7 +1,30 @@
-/* /** @format */
+/**
+ * /* /** @format
+ *
+ * @format
+ */
+
+// TODO Set up authentication so only logged in users can make changes
+// TODO Prettify layour, add colour, ect.
+// TODO Data validation on input fields
+// TODO cont. - we need to make sure blank fields/bad code doesn't get through.
+// TODO clean up how we fetch and push values to DB
 
 const dbRef = firebase.database().ref();
 const mealsRef = dbRef.child('meals');
+
+const showMealBtnUI = document.getElementById('display-recipe-module');
+showMealBtnUI.addEventListener('click', showMealBtnClicked);
+
+const openMealBtn = document.getElementById('open-recipe-module');
+openMealBtn.addEventListener('click', showRecipeBox);
+
+const addMealBtnUI = document.getElementById('add-meal-btn');
+addMealBtnUI.addEventListener('click', addMealBtnClicked);
+
+const divs = document.querySelectorAll('.weekday');
+
+divs.forEach((el) => el.addEventListener('click', fillDayWithRecipe));
 
 readMealData();
 
@@ -23,6 +46,7 @@ function setModules(edit, add, recipe) {
 function readMealData() {
 	const mealListUI = document.getElementById('meal-list');
 	setModules('none', 'none', 'none');
+	document.getElementById('meal-list').style.display = 'none';
 	mealsRef.on('value', (snap) => {
 		mealListUI.innerHTML = '';
 
@@ -35,9 +59,12 @@ function readMealData() {
 
 			let container = document.createElement('div');
 			container.setAttribute('class', 'card');
+			container.setAttribute('meal-key', key);
+			container.addEventListener('click', fillDayWithRecipe);
 
 			let wrapper = document.createElement('div');
 			wrapper.setAttribute('class', 'card-content');
+			wrapper.setAttribute('meal-key', key);
 
 			let $footer = document.createElement('footer');
 			$footer.setAttribute('class', 'card-footer');
@@ -75,9 +102,8 @@ function readMealData() {
 			$footer.append(deleteIconUI);
 			$div.append($footer);
 
-			
 			$div.setAttribute('class', 'content');
-			
+			$div.setAttribute('meal-key', key);
 
 			wrapper.append($div);
 			container.append(wrapper);
@@ -89,7 +115,7 @@ function readMealData() {
 
 //We've clicked a meal listing and want to populate recipe fields
 function mealClicked(e) {
-	console.log("meal clicked on");
+	console.log('meal clicked on');
 	setModules('none', 'none', 'block');
 	var mealID = e.target.getAttribute('meal-key');
 
@@ -125,23 +151,17 @@ function mealClicked(e) {
 	});
 }
 
-// --------------------------
-// ADD
-// --------------------------
-
-const addMealBtn = document.getElementById('open-recipe-module');
-addMealBtn.addEventListener('click', showRecipeBox);
-
-function showRecipeBox(){
-setModules("none","block","none");
+function showRecipeBox() {
+	if (document.getElementById('add-meal-module').style.display == 'block') {
+		document.getElementById('add-meal-module').style.display = 'none';
+	} else {
+		setModules('none', 'block', 'none');
+	}
 }
 
-const addMealBtnUI = document.getElementById('add-meal-btn');
-addMealBtnUI.addEventListener('click', addMealBtnClicked);
-
 function addMealBtnClicked() {
-	console.log('adding a meal...')
 	setModules('none', 'block', 'none');
+
 	const mealsRef = dbRef.child('meals');
 
 	const addMealInputsUI = document.getElementsByClassName('meal-input');
@@ -158,6 +178,15 @@ function addMealBtnClicked() {
 
 	mealsRef.push(newMeal);
 }
+
+function showMealBtnClicked() {
+	if (document.getElementById('meal-list').style.display == 'flex') {
+		document.getElementById('meal-list').style.display = 'none';
+	} else if ((document.getElementById('meal-list').style.display = 'none')) {
+		document.getElementById('meal-list').style.display = 'flex';
+	}
+}
+
 /*  */
 // --------------------------
 // DELETE
@@ -214,4 +243,51 @@ function saveMealBtnClicked(e) {
 	mealRef.update(editedMealObject);
 
 	document.getElementById('edit-meal-module').style.display = 'none';
+}
+
+function fillWeekday(e) {
+	if (e.target.getAttribute('day') != undefined) {
+		weekday = e.target.getAttribute('day');
+	}
+	console.log('weekday triggering!' + weekday);
+
+	if (weekday != '' && meal != '') {
+		fillDayWithRecipe();
+	}
+}
+
+function fillRecipe(e) {
+	if (e.target.getAttribute('meal-key') != undefined) {
+		meal = e.target.getAttribute('meal-key');
+	}
+	console.log('fillRecipe triggering!');
+	if (weekday != '' && meal != '') {
+		fillDayWithRecipe();
+	}
+}
+
+var weekday = '';
+var meal = '';
+
+function fillDayWithRecipe(e) {
+	if (e.target.getAttribute('meal-key') != undefined) {
+		meal = e.target.getAttribute('meal-key');
+	}
+	if (e.target.getAttribute('day') != undefined) {
+		weekday = e.target.getAttribute('day');
+	}
+	if (weekday != '' && meal != '') {
+		const mealRef = dbRef.child('meals/' + meal + 'name');
+		const mealDetailUI = document.getElementsByClassName(weekday)[0];
+		mealRef.on('value', (snap) => {
+			console.log('this is running.');
+			mealDetailUI.innerHTML = '';
+			snap.forEach((childSnap) => {
+				console.log('reaching here...');
+				var $p = document.createElement('p');
+				$p.innerHTML = childSnap.key + ' - ' + childSnap.val();
+				mealDetailUI.append($p);
+			});
+		});
+	}
 }
