@@ -100,7 +100,7 @@ function readMealData() {
 			$footer.append(viewIconUI);
 			$footer.append(editIconUI);
 			$footer.append(deleteIconUI);
-			$div.append($footer);
+			
 
 			$div.setAttribute('class', 'content');
 			$div.setAttribute('meal-key', key);
@@ -109,6 +109,7 @@ function readMealData() {
 			container.append(wrapper);
 			column.append(container);
 			mealListUI.append(column);
+			container.append($footer);
 		});
 	});
 }
@@ -119,7 +120,7 @@ function mealClicked(e) {
 	setModules('none', 'none', 'block');
 	var mealID = e.target.getAttribute('meal-key');
 
-	const mealRef = dbRef.child('meals/' + mealID + 'name');
+	const mealRef = dbRef.child('meals/' + mealID + '/name');
 	const mealDetailUI = document.getElementById('meal-name');
 	mealRef.on('value', (snap) => {
 		mealDetailUI.innerHTML = '';
@@ -177,6 +178,12 @@ function addMealBtnClicked() {
 	}
 
 	mealsRef.push(newMeal);
+	///Finally clear out the add recipe field!
+	for (let i = 0, len = addMealInputsUI.length; i < len; i++) {
+		addMealInputsUI[i].value = '';
+	}
+
+	setModules('none', 'none', 'none');
 }
 
 function showMealBtnClicked() {
@@ -245,49 +252,93 @@ function saveMealBtnClicked(e) {
 	document.getElementById('edit-meal-module').style.display = 'none';
 }
 
-function fillWeekday(e) {
-	if (e.target.getAttribute('day') != undefined) {
-		weekday = e.target.getAttribute('day');
-	}
-	console.log('weekday triggering!' + weekday);
-
-	if (weekday != '' && meal != '') {
-		fillDayWithRecipe();
-	}
-}
-
-function fillRecipe(e) {
-	if (e.target.getAttribute('meal-key') != undefined) {
-		meal = e.target.getAttribute('meal-key');
-	}
-	console.log('fillRecipe triggering!');
-	if (weekday != '' && meal != '') {
-		fillDayWithRecipe();
-	}
-}
-
 var weekday = '';
 var meal = '';
 
 function fillDayWithRecipe(e) {
+	console.log('CAlling fillDayRecipe');
+	console.log(meal + " and " + weekday);
 	if (e.target.getAttribute('meal-key') != undefined) {
 		meal = e.target.getAttribute('meal-key');
 	}
 	if (e.target.getAttribute('day') != undefined) {
 		weekday = e.target.getAttribute('day');
+		console.log('ping!')
 	}
 	if (weekday != '' && meal != '') {
-		const mealRef = dbRef.child('meals/' + meal + 'name');
+		console.log(weekday + ' ' + meal);
+		const mealRef = dbRef.child('meals/' + meal + '/name');
 		const mealDetailUI = document.getElementsByClassName(weekday)[0];
-		mealRef.on('value', (snap) => {
-			console.log('this is running.');
-			mealDetailUI.innerHTML = '';
-			snap.forEach((childSnap) => {
-				console.log('reaching here...');
+		mealRef.on(
+			'value',
+			(snapshot) => {
+				console.log('snap values: ');
+				console.log(snapshot.val());
 				var $p = document.createElement('p');
-				$p.innerHTML = childSnap.key + ' - ' + childSnap.val();
+				$p.innerHTML = "Today's meal is: " + snapshot.val();
 				mealDetailUI.append($p);
-			});
-		});
+				weekday = '';
+				meal = '';
+			},
+			(errorObject) => {
+				console.log('The read failed: ' + errorObject.name);
+			}
+		);
 	}
 }
+
+function getWeather(callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', 'https://api.openweathermap.org/data/2.5/forecast/daily?q=Galway&units=metric&cnt=7&appid=', true);
+	xhr.responseType = 'json';
+	xhr.onload = function () {
+		var status = xhr.status;
+		if (status === 200) {
+			callback(null, xhr.response);
+		} else {
+			callback(status, xhr.response);
+		}
+	};
+	xhr.send();
+}
+
+getWeather(function (err, data) {
+	if (err !== null) {
+		alert('Something went wrong: ' + err);
+	} else {
+
+//! CLEAN UP NEEDED HERE!
+		var d = new Date();
+		var weekday = [];
+		weekday[0] = 'sunday';
+		weekday[1] = 'monday';
+		weekday[2] = 'tuesday';
+		weekday[3] = 'wednesday';
+		weekday[4] = 'thursday';
+		weekday[5] = 'friday';
+		weekday[6] = 'saturday';
+
+		///weeather data 0 - today
+		var dayOfWeek = [];
+		
+		for (var i = 0; i < 7; i++){
+			let q = (d.getDay() + i) % 7;
+			dayOfWeek = document.getElementsByClassName(weekday[q]);
+			var $p = document.createElement('p');
+			$p.innerHTML = data.list[q].weather[0].description;
+			dayOfWeek[0].append($p);
+			var temps = document.createElement('p');
+			temps.innerHTML =
+				'<b>High:</b>' +
+				data.list[q].temp.max +
+				'C' +
+				'</br> <b>Low:</b> ' +
+				data.list[q].temp.min +
+				'C';
+			dayOfWeek[0].append(temps);
+			var feelsLike = document.createElement('p');
+			feelsLike.innerHTML = '<b>Feels Like</b> ' + data.list[q].feels_like.day;
+			dayOfWeek[0].append(feelsLike);
+		}
+	}
+});
