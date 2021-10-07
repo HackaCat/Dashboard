@@ -47,6 +47,7 @@ function readMealData() {
 	const mealListUI = document.getElementById('meal-list');
 	setModules('none', 'none', 'none');
 	document.getElementById('meal-list').style.display = 'none';
+	loadDayWithRecipe();
 	mealsRef.on('value', (snap) => {
 		mealListUI.innerHTML = '';
 
@@ -252,12 +253,11 @@ function saveMealBtnClicked(e) {
 	document.getElementById('edit-meal-module').style.display = 'none';
 }
 
-var weekday = '';
-var meal = '';
+let weekday = '';
+let meal = '';
 
 function fillDayWithRecipe(e) {
-	console.log('CAlling fillDayRecipe');
-	console.log(meal + " and " + weekday);
+	console.log('Calling fillDayRecipe');
 	if (e.target.getAttribute('meal-key') != undefined) {
 		meal = e.target.getAttribute('meal-key');
 	}
@@ -268,15 +268,19 @@ function fillDayWithRecipe(e) {
 	if (weekday != '' && meal != '') {
 		console.log(weekday + ' ' + meal);
 		const mealRef = dbRef.child('meals/' + meal + '/name');
-		const mealDetailUI = document.getElementsByClassName(weekday)[0];
+		const weekdayUI = document.getElementsByClassName(weekday)[0];
+		const dayRef = dbRef.child('weekday/');
+		const cardUI = document.getElementById(weekday + "-card");
+		
+		let dayMeal = {};
 		mealRef.on(
 			'value',
 			(snapshot) => {
-				console.log('snap values: ');
-				console.log(snapshot.val());
-				var $p = document.createElement('p');
-				$p.innerHTML = "Today's meal is: " + snapshot.val();
-				mealDetailUI.append($p);
+				let meal = snapshot.val();
+				cardUI.innerHTML = "Today's meal is: " + meal;
+				weekdayUI.append(cardUI);
+				dayMeal[weekday] = meal;
+				dayRef.update(dayMeal);
 				weekday = '';
 				meal = '';
 			},
@@ -287,9 +291,29 @@ function fillDayWithRecipe(e) {
 	}
 }
 
+function loadDayWithRecipe() {
+	const dayRef = dbRef.child('weekday/');
+	dayRef.on(
+		'value', (snap) => {
+			snap.forEach((childSnap) => {
+				let key = childSnap.key;
+				let value = childSnap.val();
+				const weekdayUI = document.getElementsByClassName(key)[0];
+				const cardUI = document.getElementById(key + '-card');
+				console.log(cardUI)
+				cardUI.innerHTML = "Today's meal is: " + value;
+				weekdayUI.append(cardUI);
+			});
+		}
+	)
+}
 function getWeather(callback) {
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'https://api.openweathermap.org/data/2.5/forecast/daily?q=Galway&units=metric&cnt=7&appid=', true);
+	xhr.open(
+		'GET',
+		'https://api.openweathermap.org/data/2.5/forecast/daily?q=Galway&units=metric&cnt=7&appid=7f95700a1e1ceb8448046663a37bfec4',
+		true
+	);
 	xhr.responseType = 'json';
 	xhr.onload = function () {
 		var status = xhr.status;
