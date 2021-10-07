@@ -1,0 +1,35 @@
+html {
+    /* Bulma doesn't have an option for dark mode colours, so I've got to override the background colour here. */
+    background: #282a36;
+}
+
+/* Setting those dark mode colours #draculatheme4lyfe */
+.card, .box, label{
+    background: #44475a;
+    color: #f8f8f2;
+}
+
+.input, .button {
+    color: #f8f8f2;
+    background-color: #6272a4;
+    border-color: #6272a4;
+}
+
+.button:hover {
+    color: #f8f8f2;
+    background-color: #6272a4;
+    border-color: #6272a4;
+}
+
+.card-header{
+    background: #4a4d60;
+}
+
+.button {
+    margin-top: 1.5em;
+}
+
+h2, label, .card-header-title{
+    color: #f8f8f2!important;
+    margin-top: .5em;
+}
