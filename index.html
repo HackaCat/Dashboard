@@ -11,26 +11,27 @@
 </head>
 
 <body class="container">
+    <section class="first-card">
+        <button id="display-recipe-module" class="button block"> Show Recipes </button>
+        <button id="open-recipe-module" class="button block"> Add A Recipe </button>
+        <div id="meal-list" class="columns is-multiline"></div>
+        
 
-    <button id="display-recipe-module" class="button block"> Show Recipes </button>
-    <button id="open-recipe-module" class="button block"> Add A Recipe </button>
-    <div id="meal-list" class="columns is-multiline"></div>
-    
-
-    <div id="recipe-module" class="card">
-        <div class="card-content">
-            <div class="content">
-                <h2 class="title is-5">Recipe</h2>
-                <div id="meal-name"></div>
-            
-                <h2 class="title is-5">Ingredients</h2>
-                <div id="ingredients"></div>
-            
-                <h2 class="title is-5">Recipe</h2>
-                <div id="recipe"></div>
+        <div id="recipe-module" class="card">
+            <div class="card-content">
+                <div class="content">
+                    <h2 class="title is-5">Recipe</h2>
+                    <div id="meal-name"></div>
+                
+                    <h2 class="title is-5">Ingredients</h2>
+                    <div id="ingredients"></div>
+                
+                    <h2 class="title is-5">Recipe</h2>
+                    <div id="recipe"></div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <section id="add-meal-module" class="box block"> 
         <form class="field card-content">
@@ -130,7 +131,16 @@
             </div>
         </div>
     </section>
-</div>
+
+    <section>
+        <div class="card">
+            <div class="card-content">
+                <div id="APOTD-deets"></div></br>
+                <div id="APOTD"></div>
+            </div>
+        </div>
+    </section>
+
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
     <script src="scripts/base.js"></script>
