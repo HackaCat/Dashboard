@@ -7,6 +7,7 @@ html {
 .card, .box, label{
     background: #44475a;
     color: #f8f8f2;
+    min-height: 100%;
 }
 
 .input, .button {
@@ -32,4 +33,13 @@ html {
 h2, label, .card-header-title{
     color: #f8f8f2!important;
     margin-top: .5em;
+}
+
+.weather {
+    background: #5d6175;
+    box-shadow: 3px 3px 3px #1c1c1c4f;
+}
+
+.card-content {
+    text-transform: capitalize;
 }
