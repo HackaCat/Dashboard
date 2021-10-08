@@ -307,6 +307,7 @@ function loadDayWithRecipe() {
 		}
 	)
 }
+
 function getWeather(callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.open(
@@ -314,6 +315,21 @@ function getWeather(callback) {
 		secrets.OPEN_WEATHER_API,
 		true
 	);
+	xhr.responseType = 'json';
+	xhr.onload = function () {
+		var status = xhr.status;
+		if (status === 200) {
+			callback(null, xhr.response);
+		} else {
+			callback(status, xhr.response);
+		}
+	};
+	xhr.send();
+}
+
+function getAPOTD(callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', secrets.APOTD_API, true);
 	xhr.responseType = 'json';
 	xhr.onload = function () {
 		var status = xhr.status;
@@ -368,3 +384,15 @@ getWeather(function (err, data) {
 		}
 	}
 });
+
+getAPOTD(function (err, data) {
+	if (err !== null) {
+		alert('Something went wrong: ' + err);
+	} else {
+		var img = document.getElementById('APOTD');
+		img.innerHTML = '<img class="astro-pic" src="' + data.url + '">';
+		var imgDeets = document.getElementById('APOTD-deets');
+		imgDeets.innerHTML =
+			'<p>' + data.title + '</p></br><p>' + data.explanation + '</p>';
+	 }
+})

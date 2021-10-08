@@ -43,3 +43,21 @@ h2, label, .card-header-title{
 .card-content {
     text-transform: capitalize;
 }
+
+.astro-pic, #APOTD{
+    width: 100%;
+}
+
+#APOTD{
+    height: 400px;
+    overflow: hidden;
+}
+
+.astro-pic{
+    position: relative;
+    top: -50%; 
+}
+
+.card.first-card {
+    margin-top: 30px;
+}
