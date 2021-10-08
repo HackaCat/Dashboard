@@ -301,7 +301,7 @@ function loadDayWithRecipe() {
 				const weekdayUI = document.getElementsByClassName(key)[0];
 				const cardUI = document.getElementById(key + '-card');
 				console.log(cardUI)
-				cardUI.innerHTML = "Today's meal is: " + value;
+				cardUI.innerHTML = "</br><b>Today's meal is:</b> " + value;
 				weekdayUI.append(cardUI);
 			});
 		}
@@ -311,7 +311,7 @@ function getWeather(callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.open(
 		'GET',
-		'https://api.openweathermap.org/data/2.5/forecast/daily?q=Galway&units=metric&cnt=7&appid=7f95700a1e1ceb8448046663a37bfec4',
+		secrets.OPEN_WEATHER_API,
 		true
 	);
 	xhr.responseType = 'json';
@@ -348,11 +348,13 @@ getWeather(function (err, data) {
 		for (var i = 0; i < 7; i++){
 			let q = (d.getDay() + i) % 7;
 			dayOfWeek = document.getElementsByClassName(weekday[q]);
-			var $p = document.createElement('p');
-			$p.innerHTML = data.list[q].weather[0].description;
-			dayOfWeek[0].append($p);
+			var icon = data.list[q].weather[0].icon;
 			var temps = document.createElement('p');
 			temps.innerHTML =
+				'<img class="weather" src=http://openweathermap.org/img/wn/' +
+				icon +
+				'@2x.png></br>' +
+				data.list[q].weather[0].description +' </br> '+
 				'<b>High:</b>' +
 				data.list[q].temp.max +
 				'C' +
@@ -361,7 +363,7 @@ getWeather(function (err, data) {
 				'C';
 			dayOfWeek[0].append(temps);
 			var feelsLike = document.createElement('p');
-			feelsLike.innerHTML = '<b>Feels Like</b> ' + data.list[q].feels_like.day;
+			feelsLike.innerHTML = '<b>Feels Like</b> ' + data.list[q].feels_like.day + 'C';
 			dayOfWeek[0].append(feelsLike);
 		}
 	}
