@@ -101,7 +101,6 @@ function readMealData() {
 			$footer.append(viewIconUI);
 			$footer.append(editIconUI);
 			$footer.append(deleteIconUI);
-			
 
 			$div.setAttribute('class', 'content');
 			$div.setAttribute('meal-key', key);
@@ -117,7 +116,6 @@ function readMealData() {
 
 //We've clicked a meal listing and want to populate recipe fields
 function mealClicked(e) {
-	console.log('meal clicked on');
 	setModules('none', 'none', 'block');
 	var mealID = e.target.getAttribute('meal-key');
 
@@ -148,7 +146,6 @@ function mealClicked(e) {
 	recipeRef.on('value', (snap) => {
 		var $li = document.createElement('li');
 		$li.innerHTML = snap.key + ': ' + snap.val();
-		// console.log("recipe: " + snap.val());
 		recipeUI.append($li);
 	});
 }
@@ -213,7 +210,6 @@ function deleteButtonClicked(e) {
 // EDIT
 // --------------------------
 function editButtonClicked(e) {
-	console.log('edit button clicked');
 	//set meal id to the hidden input field
 	document.querySelector('.edit-meal-id').value =
 		e.target.getAttribute('mealID');
@@ -257,21 +253,18 @@ let weekday = '';
 let meal = '';
 
 function fillDayWithRecipe(e) {
-	console.log('Calling fillDayRecipe');
 	if (e.target.getAttribute('meal-key') != undefined) {
 		meal = e.target.getAttribute('meal-key');
 	}
 	if (e.target.getAttribute('day') != undefined) {
 		weekday = e.target.getAttribute('day');
-		console.log('ping!')
 	}
 	if (weekday != '' && meal != '') {
-		console.log(weekday + ' ' + meal);
 		const mealRef = dbRef.child('meals/' + meal + '/name');
 		const weekdayUI = document.getElementsByClassName(weekday)[0];
 		const dayRef = dbRef.child('weekday/');
-		const cardUI = document.getElementById(weekday + "-card");
-		
+		const cardUI = document.getElementById(weekday + '-card');
+
 		let dayMeal = {};
 		mealRef.on(
 			'value',
@@ -293,28 +286,21 @@ function fillDayWithRecipe(e) {
 
 function loadDayWithRecipe() {
 	const dayRef = dbRef.child('weekday/');
-	dayRef.on(
-		'value', (snap) => {
-			snap.forEach((childSnap) => {
-				let key = childSnap.key;
-				let value = childSnap.val();
-				const weekdayUI = document.getElementsByClassName(key)[0];
-				const cardUI = document.getElementById(key + '-card');
-				console.log(cardUI)
-				cardUI.innerHTML = "</br><b>Today's meal is:</b> " + value;
-				weekdayUI.append(cardUI);
-			});
-		}
-	)
+	dayRef.on('value', (snap) => {
+		snap.forEach((childSnap) => {
+			let key = childSnap.key;
+			let value = childSnap.val();
+			const weekdayUI = document.getElementsByClassName(key)[0];
+			const cardUI = document.getElementById(key + '-card');
+			cardUI.innerHTML = "</br><b>Today's meal is:</b> " + value;
+			weekdayUI.append(cardUI);
+		});
+	});
 }
 
 function getWeather(callback) {
 	var xhr = new XMLHttpRequest();
-	xhr.open(
-		'GET',
-		secrets.OPEN_WEATHER_API,
-		true
-	);
+	xhr.open('GET', secrets.OPEN_WEATHER_API, true);
 	xhr.responseType = 'json';
 	xhr.onload = function () {
 		var status = xhr.status;
@@ -342,12 +328,49 @@ function getAPOTD(callback) {
 	xhr.send();
 }
 
+function getDadJoke(callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.open(
+		'GET',
+		secrets.DAD_JOKE
+	);
+	xhr.responseType = 'json';
+	xhr.onload = function () {
+		var status = xhr.status;
+		if (status === 200) {
+			callback(null, xhr.response);
+		} else {
+			callback(status, xhr.response);
+		}
+	};
+	xhr.send();
+}
+//
+
+function getCatFact(callback) {
+	console.log('getting cat facts...')
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', secrets.CAT_FACT, true);
+	xhr.responseType = 'json';
+		xhr.setRequestHeader('Content-Type', 'application/xml');
+		xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+	xhr.onload = function () {
+		var status = xhr.status;
+		console.log('status' + status);
+		if (status === 200) {
+			console.log(xhr.response);
+			callback(null, xhr.response);
+		} else {
+			callback(status, xhr.response);
+		}
+	};
+	xhr.send();
+}
+
 getWeather(function (err, data) {
 	if (err !== null) {
 		alert('Something went wrong: ' + err);
 	} else {
-
-//! CLEAN UP NEEDED HERE!
 		var d = new Date();
 		var weekday = [];
 		weekday[0] = 'sunday';
@@ -359,9 +382,10 @@ getWeather(function (err, data) {
 		weekday[6] = 'saturday';
 
 		///weeather data 0 - today
+
 		var dayOfWeek = [];
-		
-		for (var i = 0; i < 7; i++){
+
+		for (var i = 0; i < 7; i++) {
 			let q = (d.getDay() + i) % 7;
 			dayOfWeek = document.getElementsByClassName(weekday[q]);
 			var icon = data.list[q].weather[0].icon;
@@ -370,7 +394,8 @@ getWeather(function (err, data) {
 				'<img class="weather" src=http://openweathermap.org/img/wn/' +
 				icon +
 				'@2x.png></br>' +
-				data.list[q].weather[0].description +' </br> '+
+				data.list[q].weather[0].description +
+				' </br> ' +
 				'<b>High:</b>' +
 				data.list[q].temp.max +
 				'C' +
@@ -379,9 +404,45 @@ getWeather(function (err, data) {
 				'C';
 			dayOfWeek[0].append(temps);
 			var feelsLike = document.createElement('p');
-			feelsLike.innerHTML = '<b>Feels Like</b> ' + data.list[q].feels_like.day + 'C';
+			feelsLike.innerHTML =
+				'<b>Feels Like</b> ' + data.list[q].feels_like.day + 'C';
 			dayOfWeek[0].append(feelsLike);
 		}
+	}
+	var today = document.getElementsByClassName(weekday[d.getDay()]);
+	var today_html = document.createElement('p');
+	today_html.innerHTML = '<span class="today">TODAY</span>';
+	today[0].append(today_html);
+});
+
+getDadJoke(function (err, data) {
+	if (err !== null) {
+		alert('Something went wrong: ' + err);
+	} else {
+		console.log(data);
+		var joke = document.getElementById('dad-joke');
+		if (data.type == 'single') {
+			joke.innerHTML = '<div class="joke-body">' + data.joke + '</div>';
+		} else if (data.type == 'twopart') {
+			joke.innerHTML =
+				'<div class="joke-body">' +
+				data.setup +
+				'</br>' +
+				data.delivery +
+				'</div>';
+		}
+	}
+});
+
+getCatFact(function (err, data) {
+	console.log('getting cat facts...')
+	if (err !== null) {
+		alert('Something went wrong: ' + err);
+	} else {
+		console.log(data);
+		var fact = document.getElementById('cat-fact');
+		fact.innerHTML = '<div class="fact-body">' + data.fact + '</div>';
+		
 	}
 });
 
@@ -394,5 +455,6 @@ getAPOTD(function (err, data) {
 		var imgDeets = document.getElementById('APOTD-deets');
 		imgDeets.innerHTML =
 			'<p>' + data.title + '</p></br><p>' + data.explanation + '</p>';
-	 }
-})
+	}
+});
+
