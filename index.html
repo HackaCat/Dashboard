@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-   
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
- <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/style.css" />
 </head>
 
 <body class="container">
@@ -15,17 +15,17 @@
         <button id="display-recipe-module" class="button block"> Show Recipes </button>
         <button id="open-recipe-module" class="button block"> Add A Recipe </button>
         <div id="meal-list" class="columns is-multiline"></div>
-        
+
 
         <div id="recipe-module" class="card">
             <div class="card-content">
                 <div class="content">
                     <h2 class="title is-5">Recipe</h2>
                     <div id="meal-name"></div>
-                
+
                     <h2 class="title is-5">Ingredients</h2>
                     <div id="ingredients"></div>
-                
+
                     <h2 class="title is-5">Recipe</h2>
                     <div id="recipe"></div>
                 </div>
@@ -33,7 +33,7 @@
         </div>
     </section>
 
-    <section id="add-meal-module" class="box block"> 
+    <section id="add-meal-module" class="box block">
         <form class="field card-content">
             <div class="content">
                 <h2 class="title is-5">Add recipe</h2>
@@ -45,7 +45,7 @@
                 <input type='text' data-key='ingredients' class='meal-input input'>
                 <button type='button' id="add-meal-btn" class="button is-link">add recipe</button>
             </div>
-            
+
         </form>
     </section>
 
@@ -73,70 +73,80 @@
                 <div class="card-content weekday monday" day="monday">
                     <p id="monday-card"></p>
                 </div>
-                
+
             </div>
         </div>
         <div class="column one-seventh">
             <div class="card">
                 <header class="card-header"><span class="card-header-title">Tuesday</span></header>
                 <div class="card-content weekday tuesday" day="tuesday">
-        <p id="tuesday-card"></p>
+                    <p id="tuesday-card"></p>
                 </div>
-                
+
             </div>
         </div>
         <div class="column one-seventh">
             <div class="card">
                 <header class="card-header"><span class="card-header-title">Wednesday</span></header>
                 <div class="card-content weekday wednesday" day="wednesday">
-        <p id="wednesday-card"></p>
+                    <p id="wednesday-card"></p>
                 </div>
-                
+
             </div>
         </div>
         <div class="column one-seventh">
             <div class="card">
-                 <header class="card-header"><span class="card-header-title">Thursday</span></header>
+                <header class="card-header"><span class="card-header-title">Thursday</span></header>
                 <div class="card-content weekday thursday" day="thursday">
-        <p id="thursday-card"></p>
+                    <p id="thursday-card"></p>
                 </div>
-               
+
             </div>
         </div>
         <div class="column one-seventh">
             <div class="card">
-                 <header class="card-header"><span class="card-header-title">Friday</span></header>
+                <header class="card-header"><span class="card-header-title">Friday</span></header>
                 <div class="card-content weekday friday" day="friday">
-        <p id="friday-card"></p>
+                    <p id="friday-card"></p>
                 </div>
-               
+
             </div>
         </div>
         <div class="column one-seventh">
             <div class="card">
                 <header class="card-header"><span class="card-header-title">Saturday</span></header>
                 <div class="card-content weekday saturday" day="saturday">
-        <p id="saturday-card"></p>
+                    <p id="saturday-card"></p>
                 </div>
-                
+
             </div>
         </div>
         <div class="column one-seventh">
             <div class="card">
                 <header class="card-header"><span class="card-header-title">Sunday</span></header>
                 <div class="card-content weekday sunday" day="sunday">
-        <p id="sunday-card"></p>
+                    <p id="sunday-card"></p>
                 </div>
-                
+
             </div>
         </div>
     </section>
 
-    <section>
-        <div class="card">
-            <div class="card-content">
-                <div id="APOTD-deets"></div></br>
-                <div id="APOTD"></div>
+    <section class="columns is-multiline">
+        <div class="column one-half">
+            <div class="card">
+                <div class="card-content NASA">
+                    <div id="APOTD-deets"></div></br>
+                    <div id="APOTD"></div>
+                </div>
+            </div>
+        </div>
+        <div class="column one-half">
+            <div class="card">
+                <div class="card-content">
+                    <div id="dad-joke"></div>
+                    <div id="cat-fact"></div>
+                </div>
             </div>
         </div>
     </section>

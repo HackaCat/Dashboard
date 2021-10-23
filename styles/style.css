@@ -1,63 +1,78 @@
+/** @format */
+
 html {
-    /* Bulma doesn't have an option for dark mode colours, so I've got to override the background colour here. */
-    background: #282a36;
+	/* Bulma doesn't have an option for dark mode colours, so I've got to override the background colour here. */
+	background: #282a36;
 }
 
 /* Setting those dark mode colours #draculatheme4lyfe */
-.card, .box, label{
-    background: #44475a;
-    color: #f8f8f2;
-    min-height: 100%;
+.card,
+.box,
+label {
+	background: #44475a;
+	color: #f8f8f2;
+	min-height: 100%;
 }
 
-.input, .button {
-    color: #f8f8f2;
-    background-color: #6272a4;
-    border-color: #6272a4;
+.input,
+.button {
+	color: #f8f8f2;
+	background-color: #6272a4;
+	border-color: #6272a4;
 }
 
 .button:hover {
-    color: #f8f8f2;
-    background-color: #6272a4;
-    border-color: #6272a4;
+	color: #f8f8f2;
+	background-color: #6272a4;
+	border-color: #6272a4;
 }
 
-.card-header{
-    background: #4a4d60;
+.card-header {
+	background: #4a4d60;
 }
 
 .button {
-    margin-top: 1.5em;
+	margin-top: 1.5em;
 }
 
-h2, label, .card-header-title{
-    color: #f8f8f2!important;
-    margin-top: .5em;
+h2,
+label,
+.card-header-title {
+	color: #f8f8f2 !important;
+	margin-top: 0.5em;
 }
 
 .weather {
-    background: #5d6175;
-    box-shadow: 3px 3px 3px #1c1c1c4f;
+	background: #5d6175;
+	box-shadow: 3px 3px 3px #1c1c1c4f;
 }
 
 .card-content {
-    text-transform: capitalize;
+	text-transform: capitalize;
 }
 
-.astro-pic, #APOTD{
-    width: 100%;
+.NASA {
+	display: flex;
 }
 
-#APOTD{
-    height: 400px;
-    overflow: hidden;
+.astro-pic,
+#APOTD {
+	width: 100%;
 }
 
-.astro-pic{
-    position: relative;
-    top: -50%; 
+#APOTD {
+	overflow: hidden;
+	flex: 0.5;
+}
+
+#APOTD-deets {
+	flex: 1;
 }
 
 .card.first-card {
-    margin-top: 30px;
+	margin-top: 30px;
+}
+
+#cat-fact{
+    margin-top: 15px;
 }
