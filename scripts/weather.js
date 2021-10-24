@@ -129,6 +129,7 @@ function renderOtherDay (data, index) {
   card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
 }
 
+
 window.weatherUpdate = function () {
   getWeather(weatherCallback);
 }

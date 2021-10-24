@@ -57,6 +57,10 @@ label {
 	font-size: 1.4rem;
 	padding: 6px;
 }
+.weather-card figcaption {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
 
 .button {
 	margin-top: 1.5em;
