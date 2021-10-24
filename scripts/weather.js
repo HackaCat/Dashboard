@@ -85,7 +85,8 @@ function renderToday (data, index) {
   let windString = `${data.speed}m/s`;
   let iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
   let description = data.weather[0].description.replaceAll(' ', '&nbsp');
-
+  let sunrise = dateTo24hourTime(new Date(data.sunrise*1000));
+  let sunset = dateTo24hourTime(new Date(data.sunset*1000));
   // render data
   card.getElementsByClassName('card-header-date')[0].innerHTML = dateString;
   card.getElementsByClassName('card-header-day')[0].innerHTML = dayString;
@@ -96,6 +97,8 @@ function renderToday (data, index) {
   card.getElementsByClassName('humidity')[0].innerHTML = humidityString;
   card.getElementsByClassName('precipitation')[0].innerHTML = precipitationString;
   card.getElementsByClassName('wind')[0].innerHTML = windString;
+  card.getElementsByClassName('sunrise')[0].innerHTML = sunrise;
+  card.getElementsByClassName('sunset')[0].innerHTML = sunset;
   card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
 }
 

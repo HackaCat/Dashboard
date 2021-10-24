@@ -19,7 +19,6 @@ recipeUpdate();
 otherUpdate();
 
 // Refresh each section every 5 minutes
-
 function refresh() { 
 	console.log('refreshing all data')
 	weatherUpdate();
@@ -27,3 +26,23 @@ function refresh() {
 	otherUpdate();
 } 
 let refreshReference = setInterval(refresh, 5*60*1000)
+
+
+
+// convert time to 24hr format, padding single digits with a zero vi padStart
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
+function dateTo24hourTime (date) {
+	let minutes = date.getMinutes().toString().padStart(2, '0')
+	let hours = date.getHours().toString().padStart(2, '0')
+	return `${hours}:${minutes}`;
+}
+
+// set clock time every second:
+const clock = document.getElementById('clock');
+function setTime () {
+	let date = new Date();
+	let timeString = dateTo24hourTime(date);
+	clock.innerHTML = timeString;
+}
+let clockReference = setInterval(setTime, 1000)
+setTime()

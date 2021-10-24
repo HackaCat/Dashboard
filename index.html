@@ -75,10 +75,23 @@
                     <span class="card-header-day"></span>
                 </header>
                 <div class="card-content weekday">
-                    <figure>
-                        <img class="weather"/>
-                        <figcaption class="description"></figcaption>
-                    </figure>
+                    <div class="columns">
+                        <figure class="column">
+                            <img class="weather"/>
+                            <figcaption class="description"></figcaption>
+                        </figure>
+                        <div class="column">
+                            <div id="clock">
+                                HH:MM  
+                            </div>
+                            <div>
+                                <span> sunrise - sunset </span>
+                                <b class="sunrise"></b>
+                                &nbsp&nbsp-&nbsp&nbsp
+                                <b class="sunset"></b>
+                            </div>
+                        </div>
+                    </div>
                     <hr/>
                     <table class="table">
                         <tbody>
