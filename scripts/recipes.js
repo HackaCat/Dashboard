@@ -266,23 +266,27 @@ function fillDayWithRecipe(e) {
     const weekdayUI = document.getElementsByClassName(weekday)[0];
     const dayRef = dbRef.child('weekday/');
     // const cardUI = document.getElementById(weekday + '-card');
-
-    // let dayMeal = {};
-    // mealRef.on(
-    //   'value',
-    //   (snapshot) => {
-    //     let meal = snapshot.val();
-    //     cardUI.innerHTML = "Today's meal is: " + meal;
-    //     weekdayUI.append(cardUI);
-    //     dayMeal[weekday] = meal;
-    //     dayRef.update(dayMeal);
-    //     weekday = '';
-    //     meal = '';
-    //   },
-    //   (errorObject) => {
-    //     console.log('The read failed: ' + errorObject.name);
-    //   }
-    // );
+    let mealSection = document.getElementById(`${weekday}-meal`);
+    if (mealSection == undefined) {
+      setWeatherDays();
+      mealSection = document.getElementById(`${weekday}-meal`);
+    }
+    meal = snapshot.val()
+    let dayMeal = {};
+    mealRef.on(
+      'value',
+      (snapshot) => {
+        let meal = snapshot.val();
+        mealSection.getElementsByClassName('meal')[0].innerHTML = meal;
+        dayMeal[weekday] = meal;
+        dayRef.update(dayMeal);
+        weekday = '';
+        meal = '';
+      },
+      (errorObject) => {
+        console.log('The read failed: ' + errorObject.name);
+      }
+    );
   }
 }
 
@@ -294,12 +298,28 @@ function loadDayWithRecipe() {
     snap.forEach((childSnap) => {
       let key = childSnap.key;
       let value = childSnap.val();
+      let mealSection = document.getElementById(`${key}-meal`);
+      if (mealSection == undefined) {
+        setWeatherDays();
+        mealSection = document.getElementById(`${key}-meal`);
+      }
+      mealSection.getElementsByClassName('meal')[0].innerHTML = value;
       const weekdayUI = document.getElementsByClassName(key)[0];
-      // const cardUI = document.getElementById(key + '-card');
-      // cardUI.innerHTML = "</br><b>Today's meal is:</b> " + value;
-      // weekdayUI.append(cardUI);
     });
   });
+}
+
+// if the weather api is slower than the recipe from firebase,
+//  then the days aren't set on the days yet. Can set them manually based on 
+//  today's day.
+function setWeatherDays() {
+  let today = new Date().getDay();
+  for (var i = 0; i < 7; i++) {
+    let day = (today + i) % 7;
+    let weekday = days[date.getDay()].toLowerCase();
+    let card = document.getElementsByClassName(`day-${i}`)[0];
+    card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
+  }
 }
 
 window.recipeUpdate = function () {

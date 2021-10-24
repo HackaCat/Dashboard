@@ -96,7 +96,7 @@ function renderToday (data, index) {
   card.getElementsByClassName('humidity')[0].innerHTML = humidityString;
   card.getElementsByClassName('precipitation')[0].innerHTML = precipitationString;
   card.getElementsByClassName('wind')[0].innerHTML = windString;
-  card.getElementsByClassName('meals')[0].id = weekday;
+  card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
 }
 
 function renderOtherDay (data, index) {
@@ -126,7 +126,7 @@ function renderOtherDay (data, index) {
   card.getElementsByClassName('humidity')[0].innerHTML = humidityString;
   card.getElementsByClassName('precipitation')[0].innerHTML = precipitationString;
   card.getElementsByClassName('wind')[0].innerHTML = windString;
-  card.getElementsByClassName('meals')[0].id = weekday;
+  card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
 }
 
 window.weatherUpdate = function () {
