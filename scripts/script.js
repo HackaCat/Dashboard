@@ -26,4 +26,4 @@ function refresh() {
 	recipeUpdate();
 	otherUpdate();
 } 
-let refreshReference = setTimeout(refresh, 5*60*1000)
+let refreshReference = setInterval(refresh, 5*60*1000)
