@@ -84,7 +84,7 @@ function renderToday (data, index) {
   let precipitationString = `${data.rain}mm`;
   let windString = `${data.speed}m/s`;
   let iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-  let description = data.weather[0].description;
+  let description = data.weather[0].description.replaceAll(' ', '&nbsp');
 
   // render data
   card.getElementsByClassName('card-header-date')[0].innerHTML = dateString;
@@ -114,7 +114,7 @@ function renderOtherDay (data, index) {
   let precipitationString = `${data.rain}mm`;
   let windString = `${data.speed}m/s`;
   let iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-  let description = data.weather[0].description;
+  let description = data.weather[0].description.replaceAll(' ', '&nbsp');
 
   // render data
   card.getElementsByClassName('card-header-date')[0].innerHTML = day;
