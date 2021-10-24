@@ -2,6 +2,29 @@
  * Use OpenWeatherMap API to get the weeks weather forcast
 **/
 
+const days = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+]
+const months = [
+  'JAN',
+  'FEB',
+  'MAR',
+  'APR',
+  'MAY',
+  'JUN',
+  'JUL',
+  'AUG',
+  'SEP',
+  'OCT',
+  'NOV',
+  'DEC'
+]
 
 const weatherDivs = document.querySelectorAll('.weekday');
 weatherDivs.forEach((el) => el.addEventListener('click', fillDayWithRecipe));
@@ -27,48 +50,83 @@ function weatherCallback (err, data) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
   } else {
-    var d = new Date();
-    var weekday = [];
-    weekday[0] = 'sunday';
-    weekday[1] = 'monday';
-    weekday[2] = 'tuesday';
-    weekday[3] = 'wednesday';
-    weekday[4] = 'thursday';
-    weekday[5] = 'friday';
-    weekday[6] = 'saturday';
+    console.log('weather data', data) 
+
 
     ///weeather data 0 - today
 
     var dayOfWeek = [];
 
     for (var i = 0; i < 7; i++) {
-      let q = (d.getDay() + i) % 7;
-      dayOfWeek = document.getElementsByClassName(weekday[q]);
-      var icon = data.list[q].weather[0].icon;
-      var temps = document.createElement('p');
-      temps.innerHTML =
-        '<img class="weather" src=http://openweathermap.org/img/wn/' +
-        icon +
-        '@2x.png></br>' +
-        data.list[q].weather[0].description +
-        ' </br> ' +
-        '<b>High:</b>' +
-        data.list[q].temp.max +
-        'C' +
-        '</br> <b>Low:</b> ' +
-        data.list[q].temp.min +
-        'C';
-      dayOfWeek[0].append(temps);
-      var feelsLike = document.createElement('p');
-      feelsLike.innerHTML =
-        '<b>Feels Like</b> ' + data.list[q].feels_like.day + 'C';
-      dayOfWeek[0].append(feelsLike);
+      let dayData = data.list[i]; 
+      if (i === 0) {
+        renderToday(dayData, i);
+      } else {
+        renderOtherDay(dayData, i);
+      }
     }
-  }
-  var today = document.getElementsByClassName(weekday[d.getDay()]);
-  var today_html = document.createElement('p');
-  today_html.innerHTML = '<span class="today">TODAY</span>';
-  today[0].append(today_html);
+  } 
+}
+
+function renderToday (data, index) {
+  let date = new Date(data.dt*1000);
+  let weekday = days[date.getDay()];
+  let month = months[date.getMonth()];
+  let card = document.getElementsByClassName('day-0')[0];
+  let day = date.getDate();
+
+  // display strings
+  let dateString = `${month} ${day}`;
+  let dayString = `<b>Today</b> (${weekday})`;
+  let dayTempString = `${parseInt(data.temp.min)} - ${parseInt(data.temp.max)}°C`;
+  let feelsTempString = `${parseInt(data.feels_like.day)}°C`;
+  let humidityString = `${data.humidity}%`;
+  let precipitationString = `${data.rain}mm`;
+  let windString = `${data.speed}m/s`;
+  let iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  let description = data.weather[0].description;
+
+  // render data
+  card.getElementsByClassName('card-header-date')[0].innerHTML = dateString;
+  card.getElementsByClassName('card-header-day')[0].innerHTML = dayString;
+  card.getElementsByClassName('weather')[0].src = iconUrl;
+  card.getElementsByClassName('description')[0].innerHTML = description;
+  card.getElementsByClassName('day-temp')[0].innerHTML = dayTempString;
+  card.getElementsByClassName('feels-temp')[0].innerHTML = feelsTempString;
+  card.getElementsByClassName('humidity')[0].innerHTML = humidityString;
+  card.getElementsByClassName('precipitation')[0].innerHTML = precipitationString;
+  card.getElementsByClassName('wind')[0].innerHTML = windString;
+  card.getElementsByClassName('meals')[0].id = weekday;
+}
+
+function renderOtherDay (data, index) {
+  let date = new Date(data.dt*1000);
+  let weekday = days[date.getDay()];
+  let month = months[date.getMonth()];
+  let card = document.getElementsByClassName(`day-${index}`)[0];
+  let day = date.getDate();
+  console.log('weather', index, weekday, date, month)
+
+  // display strings
+  let dayTempString = `${parseInt(data.temp.min)} - ${parseInt(data.temp.max)}°C`;
+  let feelsTempString = `${parseInt(data.feels_like.day)}°C`;
+  let humidityString = `${data.humidity}%`;
+  let precipitationString = `${data.rain}mm`;
+  let windString = `${data.speed}m/s`;
+  let iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  let description = data.weather[0].description;
+
+  // render data
+  card.getElementsByClassName('card-header-date')[0].innerHTML = day;
+  card.getElementsByClassName('card-header-day')[0].innerHTML = weekday;
+  card.getElementsByClassName('weather')[0].src = iconUrl;
+  card.getElementsByClassName('description')[0].innerHTML = description;
+  card.getElementsByClassName('day-temp')[0].innerHTML = dayTempString;
+  card.getElementsByClassName('feels-temp')[0].innerHTML = feelsTempString;
+  card.getElementsByClassName('humidity')[0].innerHTML = humidityString;
+  card.getElementsByClassName('precipitation')[0].innerHTML = precipitationString;
+  card.getElementsByClassName('wind')[0].innerHTML = windString;
+  card.getElementsByClassName('meals')[0].id = weekday;
 }
 
 window.weatherUpdate = function () {

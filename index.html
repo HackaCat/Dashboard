@@ -3,14 +3,15 @@
 
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
     <link rel="stylesheet" href="styles/style.css" />
 </head>
 
-<body class="container">
+<body class="container is-fluid">
     <section class="first-card">
         <button id="display-recipe-module" class="button block"> Show Recipes </button>
         <button id="open-recipe-module" class="button block"> Add A Recipe </button>
@@ -67,67 +68,269 @@
     </section>
 
     <section class="columns is-multiline">
-        <div class="column one-seventh">
-            <div class="card">
-                <header class="card-header"><span class="card-header-title">Monday</span></header>
-                <div class="card-content weekday monday" day="monday">
-                    <p id="monday-card"></p>
+        <div class="column is-one-quarter">
+            <div class="card weather-card day-0">
+                <header class="card-header">
+                    <span class="card-header-date"></span>
+                    <span class="card-header-day"></span>
+                </header>
+                <div class="card-content weekday" day="">
+                    <img class="weather"/>
+                    <p class="description">
+                    </p>
+                    <hr/>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Temperature</th>
+                                <td class="day-temp"></td>
+                            </tr> 
+                            <tr>
+                                <th>Feels Like</th>
+                                <td class="feels-temp"></td>
+                            </tr>
+                            <tr>
+                                <th>Humidity</th>
+                                <td class="humidity"></td>
+                            </tr>
+                            <tr>
+                                <th>Rain</th>
+                                <td class="precipitation"></td>
+                            </tr>
+                            <tr>
+                                <th>Wind</th>
+                                <td class="wind"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <p class="meals">
+                    </p>
                 </div>
-
             </div>
         </div>
-        <div class="column one-seventh">
-            <div class="card">
-                <header class="card-header"><span class="card-header-title">Tuesday</span></header>
-                <div class="card-content weekday tuesday" day="tuesday">
-                    <p id="tuesday-card"></p>
+        <div class="column">
+            <div class="card weather-card day-1">
+                
+                <header class="card-header">
+                    <span class="card-header-date"></span>
+                    <span class="card-header-day"></span>
+                </header>
+                
+                <div class="card-content weekday" day="">
+                    <img class="weather"/>
+                    <p class="description">
+                    </p>
+                    <hr/>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="day-temp"></td>
+                            </tr> 
+                            <tr>
+                                <td class="feels-temp"></td>
+                            </tr>
+                            <tr>
+                                <td class="humidity"></td>
+                            </tr>
+                            <tr>
+                                <td class="precipitation"></td>
+                            </tr>
+                            <tr>
+                                <td class="wind"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <p class="meals">
+                    </p>
                 </div>
-
             </div>
         </div>
-        <div class="column one-seventh">
-            <div class="card">
-                <header class="card-header"><span class="card-header-title">Wednesday</span></header>
-                <div class="card-content weekday wednesday" day="wednesday">
-                    <p id="wednesday-card"></p>
+        <div class="column">
+            <div class="card weather-card day-2">
+                
+                <header class="card-header">
+                    <span class="card-header-date"></span>
+                    <span class="card-header-day"></span>
+                </header>
+                
+                <div class="card-content weekday" day="">
+                    <img class="weather"/>
+                    <p class="description">
+                    </p>
+                    <hr/>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="day-temp"></td>
+                            </tr> 
+                            <tr>
+                                <td class="feels-temp"></td>
+                            </tr>
+                            <tr>
+                                <td class="humidity"></td>
+                            </tr>
+                            <tr>
+                                <td class="precipitation"></td>
+                            </tr>
+                            <tr>
+                                <td class="wind"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <p class="meals">
+                    </p>
                 </div>
-
             </div>
         </div>
-        <div class="column one-seventh">
-            <div class="card">
-                <header class="card-header"><span class="card-header-title">Thursday</span></header>
-                <div class="card-content weekday thursday" day="thursday">
-                    <p id="thursday-card"></p>
+        <div class="column">
+            <div class="card weather-card day-3">
+                
+                <header class="card-header">
+                    <span class="card-header-date"></span>
+                    <span class="card-header-day"></span>
+                </header>
+                
+                <div class="card-content weekday" day="">
+                    <img class="weather"/>
+                    <p class="description">
+                    </p>
+                    <hr/>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="day-temp"></td>
+                            </tr> 
+                            <tr>
+                                <td class="feels-temp"></td>
+                            </tr>
+                            <tr>
+                                <td class="humidity"></td>
+                            </tr>
+                            <tr>
+                                <td class="precipitation"></td>
+                            </tr>
+                            <tr>
+                                <td class="wind"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <p class="meals">
+                    </p>
                 </div>
-
             </div>
         </div>
-        <div class="column one-seventh">
-            <div class="card">
-                <header class="card-header"><span class="card-header-title">Friday</span></header>
-                <div class="card-content weekday friday" day="friday">
-                    <p id="friday-card"></p>
+        <div class="column">
+            <div class="card weather-card day-4">
+                
+                <header class="card-header">
+                    <span class="card-header-date"></span>
+                    <span class="card-header-day"></span>
+                </header>
+                
+                <div class="card-content weekday" day="">
+                    <img class="weather"/>
+                    <p class="description">
+                    </p>
+                    <hr/>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="day-temp"></td>
+                            </tr> 
+                            <tr>
+                                <td class="feels-temp"></td>
+                            </tr>
+                            <tr>
+                                <td class="humidity"></td>
+                            </tr>
+                            <tr>
+                                <td class="precipitation"></td>
+                            </tr>
+                            <tr>
+                                <td class="wind"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <p class="meals">
+                    </p>
                 </div>
-
             </div>
         </div>
-        <div class="column one-seventh">
-            <div class="card">
-                <header class="card-header"><span class="card-header-title">Saturday</span></header>
-                <div class="card-content weekday saturday" day="saturday">
-                    <p id="saturday-card"></p>
+        <div class="column">
+            <div class="card weather-card day-5">
+                <header class="card-header">
+                    <span class="card-header-date"></span>
+                    <span class="card-header-day"></span>
+                </header>
+                <div class="card-content weekday" day="">
+                    <img class="weather"/>
+                    <p class="description">
+                    </p>
+                    <hr/>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="day-temp"></td>
+                            </tr> 
+                            <tr>
+                                <td class="feels-temp"></td>
+                            </tr>
+                            <tr>
+                                <td class="humidity"></td>
+                            </tr>
+                            <tr>
+                                <td class="precipitation"></td>
+                            </tr>
+                            <tr>
+                                <td class="wind"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <p class="meals">
+                    </p>
                 </div>
-
             </div>
         </div>
-        <div class="column one-seventh">
-            <div class="card">
-                <header class="card-header"><span class="card-header-title">Sunday</span></header>
-                <div class="card-content weekday sunday" day="sunday">
-                    <p id="sunday-card"></p>
+        <div class="column">
+            <div class="card weather-card day-6">
+                <header class="card-header">
+                    <span class="card-header-date"></span>
+                    <span class="card-header-day"></span>
+                </header>
+                <div class="card-content weekday" day="">
+                    <img class="weather"/>
+                    <p class="description">
+                    </p>
+                    <hr/>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="day-temp"></td>
+                            </tr> 
+                            <tr>
+                                <td class="feels-temp"></td>
+                            </tr>
+                            <tr>
+                                <td class="humidity"></td>
+                            </tr>
+                            <tr>
+                                <td class="precipitation"></td>
+                            </tr>
+                            <tr>
+                                <td class="wind"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <p class="meals">
+                    </p>
                 </div>
-
             </div>
         </div>
     </section>

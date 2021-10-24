@@ -265,24 +265,24 @@ function fillDayWithRecipe(e) {
     const mealRef = dbRef.child('meals/' + meal + '/name');
     const weekdayUI = document.getElementsByClassName(weekday)[0];
     const dayRef = dbRef.child('weekday/');
-    const cardUI = document.getElementById(weekday + '-card');
+    // const cardUI = document.getElementById(weekday + '-card');
 
-    let dayMeal = {};
-    mealRef.on(
-      'value',
-      (snapshot) => {
-        let meal = snapshot.val();
-        cardUI.innerHTML = "Today's meal is: " + meal;
-        weekdayUI.append(cardUI);
-        dayMeal[weekday] = meal;
-        dayRef.update(dayMeal);
-        weekday = '';
-        meal = '';
-      },
-      (errorObject) => {
-        console.log('The read failed: ' + errorObject.name);
-      }
-    );
+    // let dayMeal = {};
+    // mealRef.on(
+    //   'value',
+    //   (snapshot) => {
+    //     let meal = snapshot.val();
+    //     cardUI.innerHTML = "Today's meal is: " + meal;
+    //     weekdayUI.append(cardUI);
+    //     dayMeal[weekday] = meal;
+    //     dayRef.update(dayMeal);
+    //     weekday = '';
+    //     meal = '';
+    //   },
+    //   (errorObject) => {
+    //     console.log('The read failed: ' + errorObject.name);
+    //   }
+    // );
   }
 }
 
@@ -295,9 +295,9 @@ function loadDayWithRecipe() {
       let key = childSnap.key;
       let value = childSnap.val();
       const weekdayUI = document.getElementsByClassName(key)[0];
-      const cardUI = document.getElementById(key + '-card');
-      cardUI.innerHTML = "</br><b>Today's meal is:</b> " + value;
-      weekdayUI.append(cardUI);
+      // const cardUI = document.getElementById(key + '-card');
+      // cardUI.innerHTML = "</br><b>Today's meal is:</b> " + value;
+      // weekdayUI.append(cardUI);
     });
   });
 }
