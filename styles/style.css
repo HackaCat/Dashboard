@@ -110,3 +110,16 @@ label,
 #cat-fact{
     margin-top: 15px;
 }
+
+
+
+
+
+.recipe-card .content { 
+	font-weight: bold;
+	font-size: 1.4rem
+}
+
+.recipe-card .card-footer-item {
+	cursor: pointer;
+}

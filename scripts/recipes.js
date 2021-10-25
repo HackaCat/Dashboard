@@ -52,7 +52,7 @@ function readMealData() {
       column.setAttribute('class', 'column is-one-third');
 
       let container = document.createElement('div');
-      container.setAttribute('class', 'card');
+      container.setAttribute('class', 'card recipe-card');
       container.setAttribute('meal-key', key);
       container.addEventListener('click', fillDayWithRecipe);
 
@@ -183,10 +183,13 @@ function addMealBtnClicked() {
 // Show the list of meals loaded from firebase
 // --------------------------
 function showMealBtnClicked() {
-  if (document.getElementById('meal-list').style.display == 'flex') {
-    document.getElementById('meal-list').style.display = 'none';
-  } else if ((document.getElementById('meal-list').style.display = 'none')) {
-    document.getElementById('meal-list').style.display = 'flex';
+  let list = document.getElementById('meal-list')
+  if (list.style.display == 'flex') {
+    list.style.display = 'none';
+    showMealBtnUI.innerHTML = 'Show Recipes';
+  } else if ((list.style.display = 'none')) {
+    list.style.display = 'flex';
+    showMealBtnUI.innerHTML = 'Hide Recipes';
   }
 }
 
