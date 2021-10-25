@@ -40,7 +40,8 @@ function readMealData() {
   const mealListUI = document.getElementById('meal-list');
   setModules('none', 'none', 'none');
   document.getElementById('meal-list').style.display = 'none';
-  loadDayWithRecipe();
+  setWeatherDays();
+  loadRecipesForDays();
   mealsRef.on('value', (snap) => {
     mealListUI.innerHTML = '';
 
@@ -52,7 +53,7 @@ function readMealData() {
       column.setAttribute('class', 'column is-one-third');
 
       let container = document.createElement('div');
-      container.setAttribute('class', 'card');
+      container.setAttribute('class', 'card recipe-card');
       container.setAttribute('meal-key', key);
       container.addEventListener('click', fillDayWithRecipe);
 
@@ -183,10 +184,13 @@ function addMealBtnClicked() {
 // Show the list of meals loaded from firebase
 // --------------------------
 function showMealBtnClicked() {
-  if (document.getElementById('meal-list').style.display == 'flex') {
-    document.getElementById('meal-list').style.display = 'none';
-  } else if ((document.getElementById('meal-list').style.display = 'none')) {
-    document.getElementById('meal-list').style.display = 'flex';
+  let list = document.getElementById('meal-list')
+  if (list.style.display == 'flex') {
+    list.style.display = 'none';
+    showMealBtnUI.innerHTML = 'Show Recipes';
+  } else if ((list.style.display = 'none')) {
+    list.style.display = 'flex';
+    showMealBtnUI.innerHTML = 'Hide Recipes';
   }
 }
 
@@ -267,10 +271,6 @@ function fillDayWithRecipe(e) {
     const dayRef = dbRef.child('weekday/');
     // const cardUI = document.getElementById(weekday + '-card');
     let mealSection = document.getElementById(`${weekday}-meal`);
-    if (mealSection == undefined) {
-      setWeatherDays();
-      mealSection = document.getElementById(`${weekday}-meal`);
-    }
     meal = snapshot.val()
     let dayMeal = {};
     mealRef.on(
@@ -291,37 +291,97 @@ function fillDayWithRecipe(e) {
 }
 
 
-
-function loadDayWithRecipe() {
-  const dayRef = dbRef.child('weekday/');
-  dayRef.on('value', (snap) => {
+// Can save a recipe for each day, to show the meal planned for that day.
+// They are saved to a weekday, so they naturally recur every week
+//  but can be easily changed
+function loadRecipesForDays() {
+  // get all meal names
+  let mealRefs = dbRef.child('meals');
+  let mealNames = [];
+  mealRefs.on('value', (snap) => {
     snap.forEach((childSnap) => {
       let key = childSnap.key;
       let value = childSnap.val();
-      let mealSection = document.getElementById(`${key}-meal`);
-      if (mealSection == undefined) {
-        setWeatherDays();
-        mealSection = document.getElementById(`${key}-meal`);
+      mealNames.push(value.name);
+    });
+    mealNames = mealNames.sort();
+    mealNames.push('--')
+
+    // get all recipe to weekday mappings
+
+    let dayRef = dbRef.child('weekday/');
+    let dayToMeals = {}
+    dayRef.on('value', (snap) => {
+      snap.forEach((childSnap) => {
+        let key = childSnap.key;
+        let value = childSnap.val();
+        dayToMeals[key] = value;
+      });
+
+      // display all weekday meal dropdowns
+      for (let day of days) {
+        day = day.toLowerCase();
+        let todaysMeal = dayToMeals[day] || '--';
+        let mealSection = document.getElementById(`${day}-meal`);
+        let select = mealSection.getElementsByClassName('meal')[0];
+        select.innerHTML = '';
+        // fill each meal select with options, marking the current meal option
+        //  as selected
+        for (let meal of mealNames) {
+          let option = document.createElement('option');
+          option.setAttribute('value', meal);
+          option.innerHTML = meal;
+          if (meal == todaysMeal) {
+            option.setAttribute('selected', true);
+          }
+          select.appendChild(option);
+        }
       }
-      mealSection.getElementsByClassName('meal')[0].innerHTML = value;
-      const weekdayUI = document.getElementsByClassName(key)[0];
     });
   });
 }
 
 // if the weather api is slower than the recipe from firebase,
-//  then the days aren't set on the days yet. Can set them manually based on 
-//  today's day.
+//  then the day names aren't set on the day cards yet. set them before showing
+//  recipes so we know they are present.
 function setWeatherDays() {
   let today = new Date().getDay();
   for (var i = 0; i < 7; i++) {
     let day = (today + i) % 7;
-    let weekday = days[date.getDay()].toLowerCase();
+    let weekday = days[day].toLowerCase();
     let card = document.getElementsByClassName(`day-${i}`)[0];
-    card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
+    card.getElementsByClassName('meal')[0].setAttribute('data-day', weekday);
+    card.getElementsByClassName('meals')[0].id = weekday + '-meal';
   }
 }
+
+
+// when selecting a new meal in the weekday meal dropdown
+function changeMealOnDay (e) {
+  let select = e.target;
+  let day = select.getAttribute('data-day');
+
+  // update weekday meal in firebase
+  let newValue = {};
+  newValue[day] = select.value;
+  dbRef.child('weekday/').update(newValue)
+
+  // refresh all weekday recipe info to show newest value
+  loadRecipesForDays();
+}
+
+
+function registerChangeMealDropdown() {
+  let buttons = document.getElementsByClassName('meal');
+  for (let button of buttons) {
+    button.addEventListener('change', changeMealOnDay);
+  }
+}
+
 
 window.recipeUpdate = function () {
   readMealData();
 }
+
+// only do this once to avoid multiple listeners
+registerChangeMealDropdown();

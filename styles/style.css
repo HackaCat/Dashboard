@@ -83,11 +83,50 @@ label,
 	font-size: 1.2rem;
 	font-weight: bold;
 }
+.weather-card .weekday-meal-container {
+	position: relative;
+}
+.weather-card .meal-remove {
+	cursor: pointer;
+	position: absolute;
+	color: #44475a;
+	background: #f8f8f2;    
+	right: -11px;
+	top: -11px;
+  width: 22px;
+  border-radius: 16px;
+  height: 22px;
+  padding-left: 6px;
+}
+.weather-card .select select {
+	color: #f8f8f2;
+	background: #44475a;
+	width:139px;    
+	-moz-appearance:none !important;
+  -webkit-appearance: none !important; 
+  appearance: none !important;
+  padding-right:0px;
+}
+.weather-card.day-0 .select select {
+	width:300px;    
+}
+.weather-card .select::after {
+	display: none !important;
+}
 #clock {
 	font-size: 44px;
 }
 
+.button {
+	margin-top: 1.5em;
+}
 
+h2,
+label,
+.card-header-title {
+	color: #f8f8f2 !important;
+	margin-top: 0.5em;
+}
 
 #APOTD .card-header {
 	text-indent: 2rem;
