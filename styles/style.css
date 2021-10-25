@@ -76,9 +76,20 @@ label {
   height: 22px;
   padding-left: 6px;
 }
-.weather-card select {
+.weather-card .select select {
 	color: #f8f8f2;
 	background: #44475a;
+	width:139px;    
+	-moz-appearance:none !important;
+  -webkit-appearance: none !important; 
+  appearance: none !important;
+  padding-right:0px;
+}
+.weather-card.day-0 .select select {
+	width:300px;    
+}
+.weather-card .select::after {
+	display: none !important;
 }
 #clock {
 	font-size: 44px;
