@@ -2,29 +2,6 @@
  * Use OpenWeatherMap API to get the weeks weather forcast
 **/
 
-const days = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-]
-const months = [
-  'JAN',
-  'FEB',
-  'MAR',
-  'APR',
-  'MAY',
-  'JUN',
-  'JUL',
-  'AUG',
-  'SEP',
-  'OCT',
-  'NOV',
-  'DEC'
-]
 
 const weatherDivs = document.querySelectorAll('.weekday');
 weatherDivs.forEach((el) => el.addEventListener('click', fillDayWithRecipe));
@@ -100,7 +77,7 @@ function renderToday (data, index) {
   card.getElementsByClassName('sunrise')[0].innerHTML = sunrise;
   card.getElementsByClassName('sunset')[0].innerHTML = sunset;
   card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
-  card.getElementsByClassName('meal-remove')[0].setAttribute('data-day', weekday.toLowerCase());
+  card.getElementsByClassName('meal')[0].setAttribute('data-day', weekday.toLowerCase());
 
 }
 
@@ -132,7 +109,7 @@ function renderOtherDay (data, index) {
   card.getElementsByClassName('precipitation')[0].innerHTML = precipitationString;
   card.getElementsByClassName('wind')[0].innerHTML = windString;
   card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
-  card.getElementsByClassName('meal-remove')[0].setAttribute('data-day', weekday.toLowerCase());
+  card.getElementsByClassName('meal')[0].setAttribute('data-day', weekday.toLowerCase());
 }
 
 

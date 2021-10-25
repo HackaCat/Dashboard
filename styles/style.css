@@ -76,6 +76,10 @@ label {
   height: 22px;
   padding-left: 6px;
 }
+.weather-card select {
+	color: #f8f8f2;
+	background: #44475a;
+}
 #clock {
 	font-size: 44px;
 }
