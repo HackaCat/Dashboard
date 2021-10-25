@@ -28,45 +28,8 @@ label {
 }
 
 .card-header {
+	font-size: 1.4rem;
 	background: #4a4d60;
-}
-.weather-card hr {
-	background-color: #4a4d60;
-}
-.weather-card table {
-	color: #f8f8f2;
-	background-color: #4a4d60;
-}
-.weather-card th,
-.weather-card td {
-	color: #f8f8f2;
-	border-color: #44475a;
-}
-
-.weather-card .card-header-date {
-	font-size: 1.4rem;
-	font-weight:bold;
-	color: #44475a;
-	background: #f8f8f2;
-	padding: 2px;
-	margin: 5px 10px 5px 5px;
-	border-radius: 2px;
-}
-
-.weather-card .card-header-day {
-	font-size: 1.4rem;
-	padding: 6px;
-}
-.weather-card figcaption {
-	font-size: 1.2rem;
-	font-weight: bold;
-}
-#clock {
-	font-size: 44px;
-}
-
-.button {
-	margin-top: 1.5em;
 }
 
 h2,
@@ -85,28 +48,72 @@ label,
 	text-transform: capitalize;
 }
 
-.NASA {
-	display: flex;
-}
-
-.astro-pic,
-#APOTD {
-	width: 100%;
-}
-
-#APOTD {
-	overflow: hidden;
-	flex: 0.5;
-}
-
-#APOTD-deets {
-	flex: 1;
-}
-
 .card.first-card {
 	margin-top: 30px;
 }
 
-#cat-fact{
-    margin-top: 15px;
+
+
+.weather-card hr {
+	background-color: #4a4d60;
+}
+.weather-card table {
+	color: #f8f8f2;
+	background-color: #4a4d60;
+}
+.weather-card th,
+.weather-card td {
+	color: #f8f8f2;
+	border-color: #44475a;
+}
+
+.weather-card .card-header-date {
+	font-weight:bold;
+	color: #44475a;
+	background: #f8f8f2;
+	padding: 2px;
+	margin: 5px 10px 5px 5px;
+	border-radius: 2px;
+}
+
+.weather-card .card-header-day {
+	padding: 6px;
+}
+.weather-card figcaption {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+#clock {
+	font-size: 44px;
+}
+
+
+
+#APOTD .card-header {
+	text-indent: 2rem;
+}
+#APOTD-image {
+	float:left;
+	margin-right:10px;
+	max-height: 300px;
+	max-width: 300px;
+}
+#APOTD-title {
+	font-weight: bold;
+	text-indent: 1rem;
+}
+#APOTD-deets {
+	text-indent: 2rem;
+	margin: 5px;
+}
+.button {
+	margin-top: 1.5em;
+}
+
+
+#JOKES .card{
+	min-height: 0px;
+} 
+#JOKES .card-header {
+	text-indent: 2rem;
 }

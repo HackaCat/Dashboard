@@ -399,17 +399,35 @@
 
     <section class="columns is-multiline">
         <div class="column one-half">
-            <div class="card">
-                <div class="card-content NASA">
-                    <div id="APOTD-deets"></div></br>
-                    <div id="APOTD"></div>
+            <div class="card" id="APOTD">
+                <header class="card-header">
+                    Astrology Picture of the Day: 
+                    <span id="APOTD-title"></span>
+                </header>
+                </hr>
+                <div class="card-content NASA">                    
+                    <p>                    
+                        <img id="APOTD-image" src=""/> 
+                        <span id="APOTD-deets"></span>
+                    </p>
                 </div>
             </div>
         </div>
-        <div class="column one-half">
+        <div class="column one-half" id="JOKES">
             <div class="card">
+                <header class="card-header">
+                    Programming Joke:
+                </header>
                 <div class="card-content">
                     <div id="dad-joke"></div>
+                </div>
+            </div>
+            <br/>
+            <div class="card" id="CAT-FACT">
+                <header class="card-header">
+                    Cat Fact:
+                </header>
+                <div class="card-content">
                     <div id="cat-fact"></div>
                 </div>
             </div>
