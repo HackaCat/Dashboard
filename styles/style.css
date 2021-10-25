@@ -61,6 +61,21 @@ label {
 	font-size: 1.2rem;
 	font-weight: bold;
 }
+.weather-card .weekday-meal-container {
+	position: relative;
+}
+.weather-card .meal-remove {
+	cursor: pointer;
+	position: absolute;
+	color: #44475a;
+	background: #f8f8f2;    
+	right: -11px;
+	top: -11px;
+  width: 22px;
+  border-radius: 16px;
+  height: 22px;
+  padding-left: 6px;
+}
 #clock {
 	font-size: 44px;
 }

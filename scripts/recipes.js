@@ -307,7 +307,6 @@ function loadDayWithRecipe() {
         mealSection = document.getElementById(`${key}-meal`);
       }
       mealSection.getElementsByClassName('meal')[0].innerHTML = value;
-      const weekdayUI = document.getElementsByClassName(key)[0];
     });
   });
 }
@@ -319,12 +318,46 @@ function setWeatherDays() {
   let today = new Date().getDay();
   for (var i = 0; i < 7; i++) {
     let day = (today + i) % 7;
-    let weekday = days[date.getDay()].toLowerCase();
+    let weekday = days[today.getDay()].toLowerCase();
     let card = document.getElementsByClassName(`day-${i}`)[0];
+    card.getElementsByClassName('meal-remove')[0].setAttribute('data-day', value);
     card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
   }
+}
+
+function assignRemoveMealDayButtons() {
+  let buttons = document.getElementsByClassName('meal-remove');
+  for (let button of buttons) {
+    button.addEventListener('click', removeMealFromDay);
+  }
+}
+
+function removeMealFromDay (e) {
+  let button = e.target;
+  let day = button.getAttribute('data-day');
+  console.log('removeMealFromDay', day);
+
+  // get all meals, and if remove the day from the matching one.
+
+  const dayRef = dbRef.child('weekday/');
+  dayRef.on('value', (snap) => {
+    snap.forEach((childSnap) => {
+      let key = childSnap.key;
+      let value = childSnap.val();
+      console.log('key, value', key, value);
+      if (key == day) {
+        // delete the value and update the view
+        console.log('remove');
+        let mealSection = document.getElementById(`${key}-meal`);
+        mealSection.getElementsByClassName('meal')[0].innerHTML = '';
+        mealRef = dbRef.child('weekday/' + key).remove();
+      }
+    });
+  });
 }
 
 window.recipeUpdate = function () {
   readMealData();
 }
+
+assignRemoveMealDayButtons();

@@ -100,6 +100,8 @@ function renderToday (data, index) {
   card.getElementsByClassName('sunrise')[0].innerHTML = sunrise;
   card.getElementsByClassName('sunset')[0].innerHTML = sunset;
   card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
+  card.getElementsByClassName('meal-remove')[0].setAttribute('data-day', weekday.toLowerCase());
+
 }
 
 function renderOtherDay (data, index) {
@@ -130,6 +132,7 @@ function renderOtherDay (data, index) {
   card.getElementsByClassName('precipitation')[0].innerHTML = precipitationString;
   card.getElementsByClassName('wind')[0].innerHTML = windString;
   card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
+  card.getElementsByClassName('meal-remove')[0].setAttribute('data-day', weekday.toLowerCase());
 }
 
 
