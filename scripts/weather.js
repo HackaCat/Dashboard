@@ -79,6 +79,7 @@ function renderToday (data, index) {
   card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
   card.getElementsByClassName('meal')[0].setAttribute('data-day', weekday.toLowerCase());
 
+  markExtremeWeather(card, data);
 }
 
 function renderOtherDay (data, index) {
@@ -110,6 +111,40 @@ function renderOtherDay (data, index) {
   card.getElementsByClassName('wind')[0].innerHTML = windString;
   card.getElementsByClassName('meals')[0].id = weekday.toLowerCase() + '-meal';
   card.getElementsByClassName('meal')[0].setAttribute('data-day', weekday.toLowerCase());
+
+  markExtremeWeather(card, data);
+}
+
+function markExtremeWeather (card, data) {
+  // mark extreme weather values with colors
+  let tempClasses = 'day-temp';
+  if (data.temp.max > 25) {
+    tempClasses += ' gradient red';
+  } else if (data.temp.max > 18) {
+    tempClasses += ' gradient orange';
+  } else if (data.temp.min < 5) {
+    tempClasses += ' gradient blue';
+  }
+  card.getElementsByClassName('day-temp')[0].setAttribute('class', tempClasses);
+
+
+  // mark extreme values with colors
+  let rainClasses = 'precipitation';
+  if (data.rain > 10) {
+    rainClasses += ' gradient blue';
+  } else if (data.rain > 25) {
+    rainClasses += ' gradient red';
+  }
+  card.getElementsByClassName('precipitation')[0].setAttribute('class', rainClasses);
+
+  // mark extreme values with colors
+  let windClasses = 'wind';
+  if (data.speed > 10) {
+    windClasses += ' gradient blue';
+  } else if (data.speed > 25) {
+    windClasses += ' gradient red';
+  }
+  card.getElementsByClassName('wind')[0].setAttribute('class', windClasses);
 }
 
 
