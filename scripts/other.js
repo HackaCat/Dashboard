@@ -3,7 +3,8 @@
 // --------------------------
 // Astronomy Picture and info callback
 // --------------------------
-var astroImage = document.getElementById('APOTD');
+var astroImage = document.getElementById('APOTD-image');
+var astroTitle = document.getElementById('APOTD-title');
 var astroDeets = document.getElementById('APOTD-deets');
 
 function getAPOTD(callback) {
@@ -25,9 +26,9 @@ function  astroCallback (err, data) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
   } else {
-    astroImage.innerHTML = '<img class="astro-pic" src="' + data.url + '">';
-    astroDeets.innerHTML =
-      '<p>' + data.title + '</p></br><p>' + data.explanation + '</p>';
+    astroImage.src = data.url;
+    astroTitle.innerHTML = data.title;
+    astroDeets.innerHTML = data.explanation;
   }
 }
 
