@@ -51,8 +51,6 @@ label,
 .card.first-card {
 	margin-top: 30px;
 }
-
-
 /*
 	gradients from
 	from https://cssgradient.io/
@@ -136,16 +134,7 @@ label,
 	font-size: 44px;
 }
 
-.button {
-	margin-top: 1.5em;
-}
 
-h2,
-label,
-.card-header-title {
-	color: #f8f8f2 !important;
-	margin-top: 0.5em;
-}
 
 #APOTD .card-header {
 	text-indent: 2rem;
@@ -165,13 +154,25 @@ label,
 	margin: 5px;
 }
 .button {
-	margin-top: 1.5em;
+	margin-top: 1.5em
 }
 
+#cat-fact{
+    margin-top: 15px;
+}
+
+.recipe-card .content { 
+	font-weight: bold;
+	font-size: 1.4rem
+}
+
+.recipe-card .card-footer-item {
+	cursor: pointer;
 
 #JOKES .card{
 	min-height: 0px;
 } 
 #JOKES .card-header {
 	text-indent: 2rem;
+
 }
