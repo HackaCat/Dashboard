@@ -29,6 +29,7 @@ function  astroCallback (err, data) {
     astroImage.src = data.url;
     astroTitle.innerHTML = data.title;
     astroDeets.innerHTML = data.explanation;
+console.log(data);
   }
 }
 

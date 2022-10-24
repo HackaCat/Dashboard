@@ -44,7 +44,7 @@ otherUpdate();
 // Refresh each section every 5 minutes
 function refresh() { 
 	console.log('refreshing all data')
-	weatherUpdate();
+	//weatherUpdate();
 	recipeUpdate();
 	otherUpdate();
 } 

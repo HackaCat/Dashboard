@@ -34,8 +34,11 @@ function weatherCallback (err, data) {
 
     var dayOfWeek = [];
 
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 40; i+=7) {
       let dayData = data.list[i]; 
+console.log('--------------------------------------------------------------------------------');
+console.log(data.list[i].dt_txt);
+console.log('--------------------------------------------------------------------------------');
       if (i === 0) {
         renderToday(dayData, i);
       } else {
@@ -46,19 +49,20 @@ function weatherCallback (err, data) {
 }
 
 function renderToday (data, index) {
+console.log(data.main);
   let date = new Date(data.dt*1000);
   let weekday = days[date.getDay()];
   let month = months[date.getMonth()];
   let card = document.getElementsByClassName('day-0')[0];
   let day = date.getDate();
-
+	console.log(date, weekday);
   // display strings
   let dateString = `${month} ${day}`;
   let dayString = `<b>Today</b> (${weekday})`;
-  let dayTempString = `${parseInt(data.temp.min)} - ${parseInt(data.temp.max)}°C`;
-  let feelsTempString = `${parseInt(data.feels_like.day)}°C`;
-  let humidityString = `${data.humidity}%`;
-  let precipitationString = `${data.rain}mm`;
+  let dayTempString = `${parseInt(data.main.temp_min)} - ${parseInt(data.main.temp_max)}°C`;
+  let feelsTempString = `${parseInt(data.main.feels_like)}°C`;
+  let humidityString = `${data.main.humidity}%`;
+  let precipitationString = `It's Ireland, prepare for rain.`;
   let windString = `${data.speed}m/s`;
   let iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
   let description = data.weather[0].description.replaceAll(' ', '&nbsp');
@@ -83,18 +87,19 @@ function renderToday (data, index) {
 }
 
 function renderOtherDay (data, index) {
+  let ii = index/7;
   let date = new Date(data.dt*1000);
   let weekday = days[date.getDay()];
   let month = months[date.getMonth()];
-  let card = document.getElementsByClassName(`day-${index}`)[0];
+  let card = document.getElementsByClassName(`day-${ii}`)[0];
   let day = date.getDate();
-  console.log('weather', index, weekday, date, month)
-
+  console.log('weather', index, ii, weekday, date, month);
+console.log(ii);
   // display strings
-  let dayTempString = `${parseInt(data.temp.min)} - ${parseInt(data.temp.max)}°C`;
-  let feelsTempString = `${parseInt(data.feels_like.day)}°C`;
-  let humidityString = `${data.humidity}%`;
-  let precipitationString = `${data.rain}mm`;
+  let dayTempString = `${parseInt(data.main.temp_min)} - ${parseInt(data.main.temp_max)}°C`;
+  let feelsTempString = `${parseInt(data.main.feels_like)}°C`;
+  let humidityString = `${data.main.humidity}%`;
+  let precipitationString = `It's going to rain`;
   let windString = `${data.speed}m/s`;
   let iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
   let description = data.weather[0].description.replaceAll(' ', '&nbsp');
@@ -118,11 +123,11 @@ function renderOtherDay (data, index) {
 function markExtremeWeather (card, data) {
   // mark extreme weather values with colors
   let tempClasses = 'day-temp';
-  if (data.temp.max > 25) {
+  if (data.main.temp_max > 25) {
     tempClasses += ' gradient red';
-  } else if (data.temp.max > 18) {
+  } else if (data.main.temp_max > 18) {
     tempClasses += ' gradient orange';
-  } else if (data.temp.min < 5) {
+  } else if (data.main.temp_min < 5) {
     tempClasses += ' gradient blue';
   }
   card.getElementsByClassName('day-temp')[0].setAttribute('class', tempClasses);
@@ -130,9 +135,9 @@ function markExtremeWeather (card, data) {
 
   // mark extreme values with colors
   let rainClasses = 'precipitation';
-  if (data.rain > 10) {
+  if (0 > 10) {
     rainClasses += ' gradient blue';
-  } else if (data.rain > 25) {
+  } else if (0 > 25) {
     rainClasses += ' gradient red';
   }
   card.getElementsByClassName('precipitation')[0].setAttribute('class', rainClasses);
